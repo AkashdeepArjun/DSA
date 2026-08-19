@@ -2,17 +2,25 @@
 class Graph:
 
     def __init__(self,vertices:int):
-        self.visted=[]
-        self.adj_list= []
+        self.visted=[False for i in range(vertices)]
+        self.adj_list= [[] for i in range(vertices)]
         self.vertices=vertices
         self.undirected=True
 
 
     def add_edge(self,src:int,dest:int):
         if src>=self.vertices or dest>=self.vertices:
-            raise Exception("Invalid Edge")
+            raise Exception(f"Invalid Edge :{src>=self.vertices} or {dest >=self.vertices}")
+
+        if not self.adj_list[src]:
+            self.adj_list[src] = []
         
         if self.undirected:
+
+            if not self.adj_list[dest]:
+                self.adj_list[dest] = []
+           
+            
             self.adj_list[src].append(dest)
             self.adj_list[src].sort(key=lambda x: x)
             
@@ -27,6 +35,8 @@ class Graph:
     def remove_edge(self,src:int,dest:int):
         if src>=self.vertices or dest>=self.vertices:
             raise Exception("Invalid Edge")
+
+        
         
         if self.undirected:
             self.adj_list[src].remove(dest)
@@ -74,10 +84,24 @@ class Graph:
 
         
 
+    def reset(self):
+        self.visted=[False for i in range(self.vertices)]
+        # self.adj_list=[[] for i in range(self.vertices)]
+
+    def print_graph(self):
+        for i in range(self.vertices):
+            print(i,"->",self.adj_list[i])
 
 
-
-
+    def disconnected_components(self):
+        components=[]
+        for i in range(self.vertices):
+            if not self.visted[i]:
+                res=[]
+                self.dfs(i,res)
+                components.append(res)
+        
+        return components
 
 
 

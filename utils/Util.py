@@ -8,3 +8,10 @@ class Util:
                 return data.__dict__
             else:
                 return data
+
+
+
+        
+def  make_2d_array(row,cols,intial_value):
+     return [[intial_value for j in range(cols)] for i in range(row)]
+        
