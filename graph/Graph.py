@@ -6,9 +6,10 @@ class Graph:
 
     def __init__(self,vertices:int):
         self.type='u'
-        self.visted=[False for i in range(vertices)]
-        self.adj_list= [[] for i in range(vertices)]
+        
         self.vertices=vertices
+        self.visted=[False for i in range(vertices)]
+        self.adj_list= [[] for _ in range(self.vertices)]
         # self.undirected=True
 
 
@@ -23,7 +24,12 @@ class Graph:
 
             if not self.adj_list[dest]:
                 self.adj_list[dest] = []
+
+
            
+            print(f" added edge {src} - {dest}")
+
+            print(f"reverse edge {dest} - {src}")
             
             self.adj_list[src].append(dest)
             self.adj_list[src].sort(key=lambda x: x)
